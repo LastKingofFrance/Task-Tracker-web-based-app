@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Tracker</title>
+</head>
+<body>
+    <h1>Task Tracker</h1>
+
+    <!-- Form to add a new task -->
+    <form method="POST" action="/add">
+        <label for="coworker">Coworker's Name:</label>
+        <input type="text" id="coworker" name="coworker" required><br><br>
+
+        <label for="said_hi">Did you say hi?</label>
+        <select id="said_hi" name="said_hi" required>
+            <option value="yes">Yes</option>
+            <option value="no">No</option>
+        </select><br><br>
+
+        <label for="task_given">Did they give you a task?</label>
+        <select id="task_given" name="task_given" required>
+            <option value="yes">Yes</option>
+            <option value="no">No</option>
+        </select><br><br>
+
+        <label for="task">Task Description:</label>
+        <input type="text" id="task" name="task" required><br><br>
+
+        <label for="deadline">Task Deadline:</label>
+        <input type="date" id="deadline" name="deadline" required><br><br>
+
+        <button type="submit">Add Task</button>
+    </form>
+
+    <h2>Tasks</h2>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Coworker</th>
+                <th>Task Description</th>
+                <th>Did you say hi?</th>
+                <th>Did they give you a task?</th>
+                <th>Deadline</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for task_desc, task in tasks.items() %}
+                <tr>
+                    <td>{{ task.coworker }}</td>
+                    <td>{{ task_desc }}</td>
+                    <td>{{ task.said_hi }}</td>
+                    <td>{{ task.task_given }}</td>
+                    <td>{{ task.deadline }}</td>
+                    <td><a href="{{ url_for('complete_task', task=task_desc) }}">Mark as Complete</a></td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
